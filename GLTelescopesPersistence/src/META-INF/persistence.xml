@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="GLTelescopesPersistence">
+	
+	
+	
+<!-- 		<class>eu.gloria.gs.rt.db.CCDBinning</class> -->
+<!-- 		<class>eu.gloria.gs.rt.db.CCDFilterList</class> -->
+<!-- 		<class>eu.gloria.gs.rt.db.CCDFilterWheelList</class> -->
+<!-- 		<class>eu.gloria.gs.rt.db.GLFilterList</class> -->
+<!-- 		<class>eu.gloria.gs.rt.db.TelescopeCCDList</class> -->
+<!-- 		<class>eu.gloria.gs.rt.db.TelescopeProperty</class> -->
+	
+
+		
+		<properties>
+		
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/telescopes?autoReconnect=true"/>
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+			
+			<property name="hibernate.dbcp.testOnBorrow" value="true"/>
+			<property name="hibernate.dbcp.testOnReturn" value="true"/>
+			<property name="hibernate.dbcp.validationQuery" value="SELECT 1+1"/>
+			<property name="hibernate.dbcp.maxIdle" value="30"/>
+
+ 			<property name="hibernate.connection.password" value=""/>
+ 			<property name="hibernate.connection.username" value=""/>
+			
+
+    	</properties>
+		
+	</persistence-unit>
+</persistence>

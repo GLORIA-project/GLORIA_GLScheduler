@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ************************************************ -->
+<!-- * Project: GLORIA                              * -->
+<!-- * Archive: gloria_rt_scheduler_entities.wsdl   * -->
+<!-- * Author: Juan Cabello                         * -->
+<!-- * Revised by:                                  * -->
+<!-- *  - Martin Jelinek                            * -->
+<!-- *  - Ronan Cunniffe                            * -->
+<!-- *  - Oscar Lara                                * -->
+<!-- *  - Fernando Serena                           * -->
+<!-- * Date : 06/02/2013                            * -->
+<!-- *************************************** -->
+<schema targetNamespace="http://gloria.eu/gs/sch/entity"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:gloria.gs.sch.entity="http://gloria.eu/gs/sch/entity">
+
+	<complexType name="dateInterval">
+		<sequence>
+			<element name="min" type="dateTime" minOccurs="0" maxOccurs="1" />
+			<element name="max" type="dateTime" minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+<!-- 	<simpleType name="planOfferState"> -->
+<!-- 		<restriction base="string"> -->
+<!-- 			<enumeration value="OK"></enumeration> -->
+<!-- 			<enumeration value="REJECTED"></enumeration> -->
+<!-- 			<enumeration value="TIMEOUT"></enumeration> -->
+<!-- 		</restriction> -->
+<!-- 	</simpleType> -->
+
+<!-- 	<complexType name="planOfferInfo"> -->
+<!-- 		<sequence> -->
+<!-- 			<element name="uuid" type="string" /> -->
+<!-- 			<element name="state" type="gloria.gs.sch.entity:planOfferState" /> -->
+<!-- 		</sequence> -->
+<!-- 	</complexType> -->
+
+<!-- 	<simpleType name="planCancelationState"> -->
+<!-- 		<restriction base="string"> -->
+<!-- 			<enumeration value="OK"></enumeration> -->
+<!-- 			<enumeration value="INVALID_UUID"></enumeration> -->
+<!-- 			<enumeration value="TOO_LATE"></enumeration> -->
+<!-- 		</restriction> -->
+<!-- 	</simpleType> -->
+
+<!-- 	<complexType name="planCancelationInfo"> -->
+<!-- 		<sequence> -->
+<!-- 			<element name="uuid" type="string"></element> -->
+<!-- 			<element name="state" -->
+<!-- 				type="gloria.gs.sch.entity:planCancelationState"></element> -->
+<!-- 		</sequence> -->
+<!-- 	</complexType> -->
+
+	<simpleType name="planState">
+		<restriction base="string">
+			<enumeration value="SUBMITTED"></enumeration>
+			<enumeration value="REJECTED"></enumeration>
+			<enumeration value="CONFIRMED"></enumeration>
+			<enumeration value="DONE"></enumeration>
+			<enumeration value="ERROR"></enumeration>
+			<enumeration value="ABORTED"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="planStateDetail">
+		<restriction base="string">
+			<enumeration value="NONE"></enumeration>
+			<enumeration value="WRONG_BEHAVIOUR"></enumeration>
+			<enumeration value="OUT_OF_TIME"></enumeration>
+			<enumeration value="BY_ADMINISTRATOR"></enumeration>
+			<enumeration value="BY_GLORIA"></enumeration>
+			<enumeration value="BY_RTS"></enumeration>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="planType">
+		<restriction base="string">
+			<enumeration value="DARK"></enumeration>
+			<enumeration value="FLAT"></enumeration>
+			<enumeration value="OBSERVATION"></enumeration>
+			<enumeration value="BIAS"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="planStateInfo">
+		<sequence>
+			<element name="state" type="gloria.gs.sch.entity:planState"
+				minOccurs="1" maxOccurs="1" />
+			<element name="stateDetail" type="gloria.gs.sch.entity:planStateDetail"
+				minOccurs="1" maxOccurs="1" />
+			<element name="errorCode" type="integer" minOccurs="0"
+				maxOccurs="1" />
+			<element name="errorDesc" type="string" minOccurs="0"
+				maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="planInfo">
+		<sequence>
+			<element name="uuid" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="stateInfo" type="gloria.gs.sch.entity:planStateInfo"
+				minOccurs="1" maxOccurs="1" />
+			<element name="type" type="gloria.gs.sch.entity:planType" minOccurs="1" maxOccurs="1" />
+			<element name="user" type="string" minOccurs="0"
+				maxOccurs="1"/>
+			<element name="description" type="string" minOccurs="0"
+				maxOccurs="1"/>
+			<element name="comment" type="string" minOccurs="0"
+				maxOccurs="1"/>
+			<element name="observationSession" type="dateTime" minOccurs="0" 
+			    maxOccurs="1" />	
+			<element name="execDateIni" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="execDateEnd" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="execDeadline" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="receivedDate" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="advertDeadline" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="advertDateIni" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="advertDateEnd" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="offeredDate" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="offerDeadline" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="scheduleDateIni" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="scheduleDateEnd" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="predAstr" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			
+		</sequence>
+	</complexType>
+	
+	<complexType name="planSearchFilterResult">
+		<sequence>
+			<element name="paginationInfo" minOccurs="1" maxOccurs="1" type="gloria.gs.sch.entity:planSearchPaginationInfo" />
+			<element name="items" minOccurs="0" maxOccurs="unbounded" type="gloria.gs.sch.entity:planInfo" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="planSearchPaginationInfo">
+		<sequence>
+			<element name="pageNumber" type="int" minOccurs="1"	maxOccurs="1" />
+			<element name="pageSize" type="int" minOccurs="1"	maxOccurs="1" />
+			<element name="pageCount" type="int" minOccurs="1"	maxOccurs="1" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="planSearchPagination">
+		<sequence>
+			<element name="pageNumber" type="int" minOccurs="1"	maxOccurs="1" />
+			<element name="pageSize" type="int" minOccurs="1"	maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="planSearchFilter">
+		<sequence>
+			<element name="user" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="execPredictedDateInteval" type="gloria.gs.sch.entity:dateInterval"
+				minOccurs="0" maxOccurs="1" />
+			<element name="execBeginDateInteval" type="gloria.gs.sch.entity:dateInterval"
+				minOccurs="0" maxOccurs="1" />
+			<element name="execEndDateInteval" type="gloria.gs.sch.entity:dateInterval"
+				minOccurs="0" maxOccurs="1" />
+			<element name="observationSession" type="dateTime" minOccurs="0" maxOccurs="1" />
+			<element name="states" minOccurs="0" maxOccurs="unbounded"
+				type="gloria.gs.sch.entity:planState" />
+			<element name="types" minOccurs="0" maxOccurs="unbounded"
+				type="gloria.gs.sch.entity:planType" />
+		</sequence>
+	</complexType>
+
+
+</schema>

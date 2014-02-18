@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="config"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.ws.cxf.core.CXF_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/GLSchPersistence"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GLTelescopesPersistence"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RTCoreRest"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RTISchRestProxy"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RTSchCoreRest"/>
+	<classpathentry kind="lib" path="C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-xc-1.9.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GLSchCore"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

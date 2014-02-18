@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *************************************** -->
+<!-- * Project: GLORIA                     * -->
+<!-- * Archive: gloria_plan.xsd            * -->
+<!-- * Author:  Mª Carmen López            * -->
+<!-- * Date  : 20/01/2014                  * -->
+<!-- *************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://gloria.eu/gs/sch/entity/plan" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"  xmlns:gloria.gs.sch.entity.plan="http://gloria.eu/gs/sch/entity/plan">
+
+	<xs:simpleType name="positiveDouble">
+		<xs:restriction base="xs:double">
+    		<xs:minInclusive value="0"/>
+    	</xs:restriction>
+ 	</xs:simpleType>
+ 	
+ 	<xs:simpleType name="positiveInteger">
+   		<xs:restriction base="xs:integer">
+   			<xs:minInclusive value="0"/>
+   		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="doubleIterval">
+    	<xs:sequence>
+      		<xs:element name="min" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      		<xs:element name="max" type="xs:double" minOccurs="1" maxOccurs="1"/>
+    	</xs:sequence>
+  	</xs:complexType>
+  	
+  	<xs:complexType name="positiveDoubleIterval">
+    	<xs:sequence>
+      		<xs:element name="min" type="gloria.gs.sch.entity.plan:positiveDouble" minOccurs="1" maxOccurs="1"/>
+      		<xs:element name="max" type="gloria.gs.sch.entity.plan:positiveDouble" minOccurs="1" maxOccurs="1"/>
+    	</xs:sequence>
+  	</xs:complexType>
+  	
+	
+  	<xs:complexType name="positiveIntegerIterval">
+    	<xs:sequence>
+      		<xs:element name="min" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+      		<xs:element name="max" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+    	</xs:sequence>
+  	</xs:complexType>
+	
+	
+	<xs:simpleType name="seconds">
+		<xs:restriction base="xs:double">
+    		<xs:minInclusive value="0"/>
+    	</xs:restriction>
+ 	</xs:simpleType>
+	
+	<xs:simpleType name="mode">
+    	<xs:restriction base="string">
+    		<enumeration value="batch"></enumeration>
+    		<enumeration value="interactive"></enumeration>
+    	</xs:restriction>
+    </xs:simpleType>
+
+	<xs:complexType name="J2000">
+   		<xs:sequence>
+   			<xs:element name="RA" type="xs:double" minOccurs="1" maxOccurs="1"/>
+   	   		<xs:element name="DEC" type="xs:double" minOccurs="1" maxOccurs="1"/>
+  	  	</xs:sequence>
+ 	</xs:complexType>
+ 	
+ 	<xs:complexType name="coordinates">
+    	<xs:choice minOccurs="1" maxOccurs="1">
+      		<xs:element name="J2000" type="gloria.gs.sch.entity.plan:J2000"/>
+    	</xs:choice>
+  	</xs:complexType>
+ 	
+ 	<xs:complexType name="target">
+   		<xs:choice minOccurs="1" maxOccurs="1">
+   			<xs:element name="coordinates" type="gloria.gs.sch.entity.plan:coordinates"/>
+   	   		<xs:element name="objName" type="xs:string"/>
+  	  	</xs:choice>
+ 	</xs:complexType>
+ 	
+ 	<xs:complexType name="expose">
+   		<xs:sequence>
+   			<xs:element name="exposureTimeInfo" type="gloria.gs.sch.entity.plan:exposureTimeInfo" minOccurs="1" maxOccurs="1"/>
+   	   		<xs:choice minOccurs="1" maxOccurs="1">
+   				<xs:element name="repeatDuration" type="gloria.gs.sch.entity.plan:seconds"/>
+   	   			<xs:element name="repeatCount" type="gloria.gs.sch.entity.plan:positiveInteger"/>
+  	  		</xs:choice>
+  	  		<xs:element name="filter" type="gloria.gs.sch.entity.plan:filterType" minOccurs="1" maxOccurs="1"/>
+  	  	</xs:sequence>
+ 	</xs:complexType>
+ 	
+ 	<xs:complexType name="binning">
+    	<xs:sequence>
+      		<xs:element name="binX" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+      		<xs:element name="binY" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+    	</xs:sequence>
+  	</xs:complexType>
+  	
+  	<xs:complexType name="window">
+    	<xs:sequence>
+      		<xs:element name="x" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+      		<xs:element name="y" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+      		<xs:element name="w" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+      		<xs:element name="h" type="positiveInteger" minOccurs="1" maxOccurs="1"/>
+    	</xs:sequence>
+  	</xs:complexType>
+ 	
+ 	<xs:complexType name="cameraSettings">
+   		<xs:sequence>
+   			<xs:element name="binning" type="gloria.gs.sch.entity.plan:binning" minOccurs="0" maxOccurs="1"/>
+   	   		<!-- <xs:element name="window" type="gloria.gs.sch.entity.plan:window"/> --> 
+  	  	</xs:sequence>
+ 	</xs:complexType>
+ 	
+ 	<xs:complexType name="loop">
+   		<xs:sequence>
+   			<xs:choice minOccurs="1" maxOccurs="1">
+   				<xs:element name="repeatDuration" type="gloria.gs.sch.entity.plan:seconds" default="0"/>
+   	   			<xs:element name="repeatCount" type="gloria.gs.sch.entity.plan:positiveInteger" default="1"/>
+  	  		</xs:choice>
+   	   		<xs:choice minOccurs="1" maxOccurs="unbounded">
+   				<xs:element name="target" type="gloria.gs.sch.entity.plan:target"/>
+   				<xs:element name="cameraSettings" type="gloria.gs.sch.entity.plan:cameraSettings"/>
+   				<xs:element name="loop" type="gloria.gs.sch.entity.plan:loop"/>
+   	   			<xs:element name="expose" type="gloria.gs.sch.entity.plan:expose"/>
+  	  		</xs:choice>
+  	  	</xs:sequence>
+ 	</xs:complexType>
+ 	
+ 	<xs:complexType name="instructions">
+   		<xs:sequence>   			
+   				<xs:element name="target" type="gloria.gs.sch.entity.plan:target"/>   				
+   				<xs:element name="loop" type="gloria.gs.sch.entity.plan:loop" minOccurs="0"/>
+   	   			<xs:element name="expose" type="gloria.gs.sch.entity.plan:expose"/>  	  		
+  	  	</xs:sequence>
+ 	</xs:complexType>
+ 	
+ 	<xs:simpleType name="filterType">
+    	<restriction base="string">    		
+    		<enumeration value="OPEN"></enumeration>
+    		<enumeration value="CLOSED"></enumeration>
+    		<enumeration value="BESSEL_I"></enumeration>
+    		<enumeration value="BESSEL_R"></enumeration>
+    		<enumeration value="BESSEL_V"></enumeration>
+    		<enumeration value="BESSEL_B"></enumeration>
+    		<enumeration value="BESSEL_U"></enumeration>
+    		<enumeration value="SLOAN_U"></enumeration>
+    		<enumeration value="SLOAN_G"></enumeration>
+    		<enumeration value="SLOAN_R"></enumeration>
+    		<enumeration value="SLOAN_I"></enumeration>
+    		<enumeration value="SLOAN_Z"></enumeration>
+    		<enumeration value="Z_FILTER"></enumeration>
+    		<enumeration value="Y_FILTER"></enumeration>
+    		<enumeration value="CCD_RESPONSE"></enumeration>
+    		<enumeration value="GRISM"></enumeration>
+    		<enumeration value="SLIT_25UM"></enumeration>
+    		<enumeration value="SLIT_50UM"></enumeration>
+    		<enumeration value="SLIT_75UM"></enumeration>
+    		<enumeration value="SLIT_100UM"></enumeration>
+    		<enumeration value="UKIRT_H"></enumeration>
+    		<enumeration value="UKIRT_J"></enumeration>
+    		<enumeration value="UKIRT_K"></enumeration>
+    		<enumeration value="UKIRT_Z"></enumeration>
+    		<enumeration value="UKIRT_Y"></enumeration>
+    		<enumeration value="JOHNSON_B"></enumeration>
+    		<enumeration value="JOHNSON_R"></enumeration>
+    		<enumeration value="JOHNSON_I"></enumeration>
+    		<enumeration value="JOHNSON_J"></enumeration>
+    		<enumeration value="JOHNSON_K"></enumeration>
+    		<enumeration value="JOHNSON_L"></enumeration>
+    		<enumeration value="H_ALPHA"></enumeration>
+    		<enumeration value="CLEAR"></enumeration>
+    		<enumeration value="JOHNSON_G"></enumeration>
+    		<enumeration value="JOHNSON_V"></enumeration>
+    		<enumeration value="INFRARED_RG850"></enumeration>
+    		<enumeration value="DARK"></enumeration>
+    		<enumeration value="GENERIC_B"></enumeration>
+    		<enumeration value="GENERIC_G"></enumeration>
+    		<enumeration value="GENERIC_H"></enumeration>
+    		<enumeration value="GENERIC_I"></enumeration>
+    		<enumeration value="GENERIC_J"></enumeration>
+    		<enumeration value="GENERIC_K"></enumeration>
+    		<enumeration value="GENERIC_L"></enumeration>
+    		<enumeration value="GENERIC_R"></enumeration>
+    		<enumeration value="GENERIC_V"></enumeration>
+    		<enumeration value="GENERIC_Y"></enumeration>
+    		<enumeration value="GENERIC_Z"></enumeration>
+    	</restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="planType">
+    	<restriction base="string">
+    		<enumeration value="DARK"></enumeration>
+    		<enumeration value="FLAT"></enumeration>
+    		<enumeration value="OBSERVATION"></enumeration>
+   		 	<enumeration value="BIAS"></enumeration>
+    	</restriction>
+    </xs:simpleType>
+    
+    <simpleType name="trackingRateType">
+        <annotation>
+        	<documentation></documentation>
+        </annotation>
+        <restriction base="string">
+    		<enumeration value="DriveSidereal"></enumeration>
+    		<enumeration value="DriveLunar"></enumeration>
+    		<enumeration value="DriveSolar"></enumeration>
+    		<enumeration value="DriveKing"></enumeration>          <!-- (deprecated) -->
+    		<!-- <enumeration value="SlowSSO"></enumeration> -->   <!-- TODO::(using ephemeris, tracking=sidereal + linear differential, speed=low) -->
+    		<!-- <enumeration value="FastSSO"></enumeration> -->   <!-- TODO::(using ephemeris, tracking = complex differential, speed=high) -->
+    		<!-- <enumeration value="Satellite"></enumeration> --> <!-- using ephemeris, tracking = geocentricl, speed=very high -->
+    	</restriction>
+    </simpleType>
+ 	
+ 	<xs:complexType name="filters">
+   		<xs:sequence>
+   			<xs:element name="filter" type="gloria.gs.sch.entity.plan:filterType" minOccurs="1" maxOccurs="unbounded"/>
+  	  	</xs:sequence>
+ 	</xs:complexType>
+ 	
+ 	<xs:complexType name="targets">
+   		<xs:sequence>
+   			<xs:element name="target" type="gloria.gs.sch.entity.plan:target" minOccurs="1" maxOccurs="unbounded"/>
+  	  	</xs:sequence>
+ 	</xs:complexType>
+ 	
+ 	<xs:complexType name="constraints">
+    	<xs:sequence>
+
+    		<xs:element name="targets"
+    			type="gloria.gs.sch.entity.plan:targets" minOccurs="1"
+    			maxOccurs="1" />
+    		<xs:element name="mode"
+    			type="gloria.gs.sch.entity.plan:mode" minOccurs="1"
+    			maxOccurs="1" />
+    		<xs:element name="filters"
+    			type="gloria.gs.sch.entity.plan:filters" minOccurs="1"
+    			maxOccurs="1" />
+
+
+    		<xs:element name="tracking"
+    			type="gloria.gs.sch.entity.plan:trackingRateType"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="notBeforeDate" type="xs:dateTime"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="notAfterDate" type="xs:dateTime"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="pointing-error" type="xs:double"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="FoV" type="xs:double" minOccurs="0"
+    			maxOccurs="1" />
+    		<xs:element name="moonDistance" type="xs:double"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="moonAltitude" type="xs:double"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="seeing" type="xs:double" minOccurs="0"
+    			maxOccurs="1" />
+
+    		<xs:element name="FWHM" type="xs:double" minOccurs="0"
+    			maxOccurs="1" />
+    		<xs:element name="pixelScale"
+    			type="gloria.gs.sch.entity.plan:doubleIterval"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="exposureTime"
+    			type="gloria.gs.sch.entity.plan:positiveDoubleIterval"
+    			minOccurs="0" maxOccurs="1" />
+    		<xs:element name="readoutTime"
+    			type="gloria.gs.sch.entity.plan:positiveDouble"
+    			minOccurs="0" maxOccurs="1" />
+
+    		<xs:element name="DaysFromNewMoon" type="xs:int"
+    			minOccurs="0">
+    		</xs:element>
+    		<xs:element name="preferredTelescope" type="xs:int"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</xs:element>
+    		<xs:element name="targetAltitudeInfo" type="gloria.gs.sch.entity.plan:targetAltitudeInfo" minOccurs="0"></xs:element>
+    	</xs:sequence>
+ 	</xs:complexType>
+ 	 
+ 	 <xs:complexType name="metadata">
+    	<xs:sequence>
+    		<xs:element name="uuid" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="user" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="priority" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="predictedExecIni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="predictedExecEnd" type="xs:date" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="predictedExecTime" type="gloria.gs.sch.entity.plan:seconds"  minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="type" type="gloria.gs.sch.entity.plan:planType"  minOccurs="0" maxOccurs="1"/>
+  	  	</xs:sequence>
+ 	 </xs:complexType>
+
+	<xs:element name="plan">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="metadata" type="gloria.gs.sch.entity.plan:metadata" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="constraints" type="gloria.gs.sch.entity.plan:constraints" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="instructions" type="gloria.gs.sch.entity.plan:instructions" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType> 
+	</xs:element>
+
+
+	<xs:complexType name="targetAltitudeInfo">
+		<xs:choice>
+			<xs:element name="targetAltitude" type="xs:double"></xs:element>
+			<xs:element name="airmass" type="xs:double"></xs:element>			
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="exposureTimeInfo">
+		<xs:choice>
+			<xs:element name="expositionTime"
+				type="gloria.gs.sch.entity.plan:seconds">
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="magnitude" type="xs:double" minOccurs="0"></xs:element>
+				<xs:element name="SNR" type="xs:double" minOccurs="0"></xs:element>				
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:element name="simpleExposure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="target"
+					type="gloria.gs.sch.entity.plan:target">
+				</xs:element>
+				<xs:element name="filter"
+					type="gloria.gs.sch.entity.plan:filterType">
+				</xs:element>
+				<xs:element name="exposureInfo" type="gloria.gs.sch.entity.plan:exposureTimeInfo"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

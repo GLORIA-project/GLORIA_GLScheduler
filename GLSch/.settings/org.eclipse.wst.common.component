@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="GLSch">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
+        <dependent-module archiveName="RTCoreRest.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RTCoreRest/RTCoreRest">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="GLSchPersistence.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/GLSchPersistence/GLSchPersistence">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="GLTelescopesPersistence.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/GLTelescopesPersistence/GLTelescopesPersistence">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="GLSchCore.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/GLSchCore/GLSchCore">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-jaxrs-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-jaxrs-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-mapper-asl-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-mapper-asl-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-xc-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-xc-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-core-asl-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/repositorio/workspace/eclipsews/extlibs/rest/jackson-core-asl-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="RTSchCoreRest.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RTSchCoreRest/RTSchCoreRest">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="RTISchRestProxy.war" deploy-path="/WEB-INF/lib" handle="module:/resource/RTISchRestProxy/RTISchRestProxy">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="GLSch"/>
+        <property name="java-output-path" value="/GLSch/build/classes"/>
+    </wb-module>
+</project-modules>
